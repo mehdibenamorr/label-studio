@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  # This name uniquely identifies the PVC. Will be used in deployment below.
+  name: postgres-pv-claim
+  namespace: label-studio
+spec:
+  # Read more about access modes here: http://kubernetes.io/docs/user-guide/persistent-volumes/#access-modes
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: openebs-local-rwo
+  volumeMode: Filesystem
+  resources:
+    # This is the request for storage. Should be available in the cluster.
+    requests:
+      storage: 10Gi
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  # This name uniquely identifies the PVC. Will be used in deployment below.
+  name: labelstudio-pv-claim
+  namespace: label-studio
+spec:
+  # Read more about access modes here: http://kubernetes.io/docs/user-guide/persistent-volumes/#access-modes
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: openebs-local-rwo
+  volumeMode: Filesystem
+  resources:
+    # This is the request for storage. Should be available in the cluster.
+    requests:
+      storage: 10Gi

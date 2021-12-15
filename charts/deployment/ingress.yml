@@ -1,0 +1,26 @@
+# Ingress configuration
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: labelstudio-ingress
+  namespace: label-studio
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: label-studio.pads.fim.uni-passau.de
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: label-studio-service
+              port:
+                number: 3200
+  tls: # < placing a host in the TLS config will indicate a certificate should be created
+  - hosts:
+    - label-studio.pads.fim.uni-passau.de
+    secretName: labelstudio-cert
